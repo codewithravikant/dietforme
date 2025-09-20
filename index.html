@@ -339,19 +339,15 @@
 
                 recipeOutput.innerHTML = `
                     <div class="text-center">
-                        <h3 class="text-lg font-semibold text-[#118AB2] mb-4">🤖 AI Recipe Generator</h3>
-                        <div class="bg-blue-50 p-4 rounded-lg mb-4">
-                            <p class="text-sm text-blue-800 mb-3">To use AI features, you'll need to:</p>
-                            <ol class="text-left text-sm text-gray-700 space-y-2">
-                                <li>1. Get a free Gemini API key from <a href="https://makersuite.google.com/app/apikey" target="_blank" class="text-blue-600 hover:underline">Google AI Studio</a></li>
-                                <li>2. Click "Open Gemini" below and paste your API key</li>
-                                <li>3. Generate personalized recipes!</li>
-                            </ol>
+                        <h3 class="text-lg font-semibold text-[#118AB2] mb-4">🍽️ AI Recipe Generator</h3>
+                        <div class="bg-green-50 p-4 rounded-lg mb-4">
+                            <p class="text-sm text-green-800 mb-3">Ready to generate healthy Indian recipes!</p>
+                            <p class="text-sm text-gray-700">Click below to open ChatGPT with a pre-filled prompt for "${prompt}"</p>
                         </div>
-                        <button onclick="openGeminiWindow()" class="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors">
-                            🔑 Open Gemini API Window
+                        <button onclick="openChatGPT('${prompt}', 'recipe')" class="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 transition-colors">
+                            🤖 Open ChatGPT Recipe Generator
                         </button>
-                        <p class="text-xs text-gray-500 mt-3">Your API key stays in your browser - never shared with us!</p>
+                        <p class="text-xs text-gray-500 mt-3">Uses ChatGPT free version - no API key needed!</p>
                     </div>
                 `;
             });
@@ -371,142 +367,96 @@
                         <h3 class="text-lg font-semibold text-[#118AB2] mb-4">📋 AI Meal Planner</h3>
                         <div class="bg-green-50 p-4 rounded-lg mb-4">
                             <p class="text-sm text-green-800 mb-3">Your details: ${age} years, ${height}cm, ${weight}kg</p>
-                            <p class="text-sm text-gray-700">Ready to generate your personalized meal plan!</p>
+                            <p class="text-sm text-gray-700">Ready to generate your personalized Indian meal plan!</p>
                         </div>
-                        <button onclick="openGeminiWindow('meal-plan')" class="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 transition-colors">
-                            🍽️ Generate AI Meal Plan
+                        <button onclick="openChatGPT('${age},${height},${weight}', 'meal-plan')" class="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 transition-colors">
+                            🍽️ Open ChatGPT Meal Planner
                         </button>
-                        <p class="text-xs text-gray-500 mt-3">Uses your own Google Gemini API key</p>
+                        <p class="text-xs text-gray-500 mt-3">Uses ChatGPT free version - no API key needed!</p>
                     </div>
                 `;
             });
         });
 
-        // Gemini API Integration Functions
-        function openGeminiWindow(type = 'recipe') {
-            const apiKey = localStorage.getItem('gemini_api_key');
-            if (apiKey) {
-                if (type === 'meal-plan') {
-                    generateMealPlanWithGemini();
-                } else {
-                    generateRecipeWithGemini();
-                }
-            } else {
-                showApiKeyModal(type);
-            }
-        }
+        // ChatGPT Integration Functions
+        function openChatGPT(input, type) {
+            let prompt = '';
+            
+            if (type === 'recipe') {
+                prompt = `I am an Indian person looking for a healthy recipe for belly fat loss. Please create a healthy Indian recipe for "${input}". 
 
-        function showApiKeyModal(type) {
-            const modal = document.createElement('div');
-            modal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50';
-            modal.innerHTML = `
-                <div class="bg-white p-6 rounded-lg max-w-md w-full mx-4">
-                    <h3 class="text-lg font-semibold mb-4">🔑 Enter Your Gemini API Key</h3>
-                    <p class="text-sm text-gray-600 mb-4">
-                        Get your free API key from 
-                        <a href="https://makersuite.google.com/app/apikey" target="_blank" class="text-blue-600 hover:underline">Google AI Studio</a>
-                    </p>
-                    <input type="password" id="apiKeyInput" placeholder="Paste your API key here" 
-                           class="w-full p-3 border rounded-lg mb-4">
-                    <div class="flex space-x-3">
-                        <button onclick="saveApiKey('${type}')" class="flex-1 bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700">
-                            Save & Continue
-                        </button>
-                        <button onclick="closeModal()" class="flex-1 bg-gray-300 text-gray-700 py-2 rounded-lg hover:bg-gray-400">
-                            Cancel
-                        </button>
+Requirements:
+- Focus on North Indian and West Indian cuisine
+- Use common Indian ingredients available in Indian kitchens
+- Make it suitable for fat loss (low calorie, high protein, high fiber)
+- Include specific measurements and cooking instructions
+- Keep it simple and practical for daily cooking
+- Avoid excessive oil, sugar, and refined flour
+- Include nutritional benefits
+
+Please provide:
+1. Recipe name
+2. Ingredients with quantities
+3. Step-by-step cooking instructions
+4. Approximate calories per serving
+5. Nutritional benefits for weight loss`;
+            } else if (type === 'meal-plan') {
+                const [age, height, weight] = input.split(',');
+                prompt = `I am an Indian person looking for a personalized meal plan for belly fat loss. My details: Age ${age} years, Height ${height} cm, Weight ${weight} kg.
+
+Please create a comprehensive meal plan with the following requirements:
+
+Personal Details:
+- Indian person living in India
+- Age: ${age} years
+- Height: ${height} cm  
+- Weight: ${weight} kg
+- Goal: Belly fat loss and overall weight loss
+
+Requirements:
+- Focus on North Indian and West Indian cuisine
+- Use common Indian ingredients and dishes
+- Include traditional Indian meals (dal, roti, sabzi, rice, etc.)
+- Plan for Indian cooking methods and spices
+- Include Indian snacks and beverages
+- Consider Indian meal timings and culture
+- Make it practical for Indian kitchen setup
+
+Please provide:
+1. Daily calorie target based on my stats
+2. Daily meal plan (Breakfast, Lunch, Dinner, Snacks)
+3. Weekly meal variations
+4. Specific Indian dishes with calorie counts
+5. Indian cooking tips for weight loss
+6. Hydration plan (including Indian beverages like buttermilk, green tea)
+7. Shopping list of Indian ingredients
+
+Format it clearly with sections for each day and meal.`;
+            }
+            
+            // Open ChatGPT in new tab with pre-filled prompt
+            const chatgptUrl = `https://chat.openai.com/?q=${encodeURIComponent(prompt)}`;
+            window.open(chatgptUrl, '_blank');
+            
+            // Show success message
+            const output = type === 'recipe' ? document.getElementById('recipeOutput') : document.getElementById('plannerOutput');
+            output.innerHTML = `
+                <div class="text-center">
+                    <h3 class="text-lg font-semibold text-green-600 mb-2">✅ ChatGPT Opened!</h3>
+                    <p class="text-sm text-gray-600 mb-3">Your personalized prompt has been pre-filled in ChatGPT</p>
+                    <div class="bg-green-50 p-3 rounded-lg text-left">
+                        <p class="text-xs text-green-800 font-semibold mb-1">What happens next:</p>
+                        <ul class="text-xs text-gray-700 space-y-1">
+                            <li>• ChatGPT will generate your ${type === 'recipe' ? 'recipe' : 'meal plan'}</li>
+                            <li>• Copy the response back to this page if needed</li>
+                            <li>• Use ChatGPT's free version - no cost!</li>
+                        </ul>
                     </div>
+                    <button onclick="location.reload()" class="mt-3 bg-blue-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-blue-700">
+                        Generate Another
+                    </button>
                 </div>
             `;
-            document.body.appendChild(modal);
-            document.getElementById('apiKeyInput').focus();
-        }
-
-        function saveApiKey(type) {
-            const apiKey = document.getElementById('apiKeyInput').value.trim();
-            if (apiKey) {
-                localStorage.setItem('gemini_api_key', apiKey);
-                closeModal();
-                if (type === 'meal-plan') {
-                    generateMealPlanWithGemini();
-                } else {
-                    generateRecipeWithGemini();
-                }
-            } else {
-                alert('Please enter a valid API key');
-            }
-        }
-
-        function closeModal() {
-            document.querySelector('.fixed.inset-0').remove();
-        }
-
-        async function generateRecipeWithGemini() {
-            const prompt = document.getElementById('recipeInput').value;
-            const apiKey = localStorage.getItem('gemini_api_key');
-            const output = document.getElementById('recipeOutput');
-
-            output.innerHTML = '<p class="text-center text-gray-500">🤖 Generating AI recipe...</p>';
-
-            try {
-                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        contents: [{
-                            parts: [{
-                                text: `Generate a healthy recipe for a fat-loss diet based on this request: "${prompt}". Focus on Indian cuisine with common ingredients. Provide a title, ingredients list, and step-by-step instructions. Keep it simple and healthy.`
-                            }]
-                        }]
-                    })
-                });
-
-                const result = await response.json();
-                const text = result?.candidates?.[0]?.content?.parts?.[0]?.text;
-                
-                if (text) {
-                    output.innerHTML = `<div class="text-left">${text.replace(/\n/g, '<br>')}</div>`;
-                } else {
-                    output.innerHTML = '<p class="text-center text-red-500">Failed to generate recipe. Please check your API key.</p>';
-                }
-            } catch (error) {
-                output.innerHTML = '<p class="text-center text-red-500">Error: ' + error.message + '</p>';
-            }
-        }
-
-        async function generateMealPlanWithGemini() {
-            const age = document.getElementById('ageInput').value;
-            const height = document.getElementById('heightInput').value;
-            const weight = document.getElementById('weightInput').value;
-            const apiKey = localStorage.getItem('gemini_api_key');
-            const output = document.getElementById('plannerOutput');
-
-            output.innerHTML = '<p class="text-center text-gray-500">🤖 Generating AI meal plan...</p>';
-
-            try {
-                const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        contents: [{
-                            parts: [{
-                                text: `Generate a complete daily and weekly food plan for a female who is ${age} years old, ${height} cm tall, and weighs ${weight} kg. Focus on Indian cuisine. Provide specific meal ideas for each day with calorie counts. Structure it clearly with Daily Plan and Weekly Plan sections.`
-                            }]
-                        }]
-                    })
-                });
-
-                const result = await response.json();
-                const text = result?.candidates?.[0]?.content?.parts?.[0]?.text;
-                
-                if (text) {
-                    output.innerHTML = `<div class="text-left">${text.replace(/\n/g, '<br>')}</div>`;
-                } else {
-                    output.innerHTML = '<p class="text-center text-red-500">Failed to generate meal plan. Please check your API key.</p>';
-                }
-            } catch (error) {
-                output.innerHTML = '<p class="text-center text-red-500">Error: ' + error.message + '</p>';
-            }
         }
     </script>
 

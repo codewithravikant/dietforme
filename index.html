@@ -39,82 +39,224 @@
             <p class="text-lg text-gray-600">A personalised diet and exercise plan to help you lose belly fat, designed for a 28-year-old female.</p>
         </header>
 
-        <main class="grid grid-cols-1 gap-8">
+        <main class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
 
-            <!-- User Information Form -->
-            <section class="bg-white rounded-lg shadow-md p-6">
-                <h2 class="text-2xl font-semibold text-center text-[#118AB2] mb-6">Tell Us About Yourself</h2>
-                <p class="text-center text-gray-600 mb-6">Help us create your personalized diet and exercise plan</p>
-                
-                <div class="max-w-2xl mx-auto">
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Gender</label>
-                            <select id="genderInput" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#118AB2]">
-                                <option value="">Select Gender</option>
-                                <option value="male">Male</option>
-                                <option value="female">Female</option>
-                                <option value="other">Other</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Age (years)</label>
-                            <input id="ageInput" type="number" placeholder="e.g., 28" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#118AB2]">
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Weight (kg)</label>
-                            <input id="weightInput" type="number" placeholder="e.g., 60" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#118AB2]">
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Height</label>
-                            <div class="flex gap-2">
-                                <input id="heightFeetInput" type="number" placeholder="5" min="3" max="8" class="flex-1 px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#118AB2]">
-                                <span class="flex items-center text-gray-500">ft</span>
-                                <input id="heightInchesInput" type="number" placeholder="5" min="0" max="11" class="flex-1 px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#118AB2]">
-                                <span class="flex items-center text-gray-500">in</span>
-                            </div>
-                            <p class="text-xs text-gray-500 mt-1">Or enter in cm below</p>
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700 mb-2">Height (cm)</label>
-                            <input id="heightCmInput" type="number" placeholder="e.g., 165" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#118AB2]">
-                        </div>
+            <section class="md:col-span-2 lg:col-span-3 bg-white rounded-lg shadow-md p-6 flex flex-col md:flex-row items-center justify-center text-center">
+                <div class="mb-4 md:mb-0 md:mr-8">
+                    <h2 class="text-2xl font-semibold text-[#118AB2] mb-2">Daily Calorie Target</h2>
+                    <p class="text-gray-600">A moderate deficit for sustainable fat loss without feeling deprived.</p>
+                </div>
+                <div class="text-7xl font-bold text-[#FF6B6B]">
+                    1,500
+                    <span class="text-5xl text-gray-500">-</span>
+                    1,600
+                    <span class="text-3xl text-gray-400 block">kcal</span>
+                </div>
+            </section>
+            
+            <section class="lg:col-span-1 md:col-span-1 bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-2xl font-semibold text-center text-[#118AB2] mb-4">Meal Calorie Distribution</h2>
+                <p class="text-center text-gray-600 mb-4">Balancing your energy intake throughout the day is key. Here's a typical breakdown.</p>
+                <div class="chart-container">
+                    <canvas id="calorieDistributionChart"></canvas>
+                </div>
+            </section>
+            
+            <section class="lg:col-span-2 md:col-span-1 bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-2xl font-semibold text-center text-[#118AB2] mb-6">Nourishing Meal Ideas</h2>
+                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
+                    <div class="bg-green-50 p-4 rounded-lg border border-green-200">
+                        <h3 class="font-bold text-green-800 mb-2">Breakfast (300-350 kcal)</h3>
+                        <ul class="list-disc list-inside text-gray-700 space-y-1">
+                            <li>Vegetable Poha with peanuts</li>
+                            <li>Moong Dal Chilla with chutney</li>
+                            <li>Stuffed Paratha with curd</li>
+                        </ul>
                     </div>
-                    
-                    <div class="mb-6">
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Region of India</label>
-                        <select id="regionInput" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#118AB2]">
-                            <option value="">Select Region</option>
-                            <option value="north">North India</option>
-                            <option value="south">South India</option>
-                            <option value="east">East India</option>
-                            <option value="west">West India</option>
-                            <option value="northeast">Northeast India</option>
-                            <option value="central">Central India</option>
-                        </select>
+                     <div class="bg-yellow-50 p-4 rounded-lg border border-yellow-200">
+                        <h3 class="font-bold text-yellow-800 mb-2">Lunch (450-500 kcal)</h3>
+                        <ul class="list-disc list-inside text-gray-700 space-y-1">
+                            <li>Roti with Dal and Sabzi</li>
+                            <li>Brown Rice with Rajma/Chole</li>
+                            <li>Grilled Paneer with veggies</li>
+                        </ul>
                     </div>
-                    
-                    <div class="text-center">
-                        <button id="generatePersonalizedPlan" class="bg-[#118AB2] text-white font-bold py-3 px-8 rounded-lg shadow-lg hover:bg-opacity-90 transition-all duration-300 transform hover:scale-105">
-                            Generate My Personalized Plan
-                        </button>
+                     <div class="bg-blue-50 p-4 rounded-lg border border-blue-200">
+                        <h3 class="font-bold text-blue-800 mb-2">Dinner (400-450 kcal)</h3>
+                        <ul class="list-disc list-inside text-gray-700 space-y-1">
+                            <li>Vegetable Khichdi or Daliya</li>
+                            <li>Lentil soup with 1 Roti</li>
+                            <li>Sautéed vegetables</li>
+                        </ul>
+                    </div>
+                     <div class="bg-red-50 p-4 rounded-lg border border-red-200">
+                        <h3 class="font-bold text-red-800 mb-2">Snacks (100-150 kcal each)</h3>
+                        <ul class="list-disc list-inside text-gray-700 space-y-1">
+                            <li>Fresh fruit (apple, guava)</li>
+                            <li>Roasted chana or makhana</li>
+                            <li>Buttermilk or green tea</li>
+                        </ul>
                     </div>
                 </div>
             </section>
 
-            <!-- AI Chat Window -->
-            <section id="aiChatSection" class="bg-white rounded-lg shadow-md p-6 hidden">
-                <h2 class="text-2xl font-semibold text-center text-[#118AB2] mb-6">Your AI Nutrition & Fitness Coach</h2>
-                <p class="text-center text-gray-600 mb-4">Ask me anything about your diet, exercise, or meal planning!</p>
-                
-                <div class="max-w-4xl mx-auto">
-                    <div class="mb-4">
-                        <input id="chatInput" type="text" placeholder="Ask about recipes, meal plans, exercises, or nutrition tips..." class="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#118AB2]">
+             <section class="md:col-span-2 lg:col-span-3 bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-2xl font-semibold text-center text-[#118AB2] mb-6">Your AI Nutrition Coach</h2>
+                <p class="text-center text-gray-600 mb-4">Need a new recipe idea? Ask our AI coach for a healthy suggestion that fits your diet plan.</p>
+                <div class="flex flex-col items-center space-y-4">
+                    <input id="recipeInput" type="text" placeholder="e.g., 'lentil dish' or 'healthy snack'" class="w-full md:w-2/3 px-4 py-2 border rounded-full focus:outline-none focus:ring-2 focus:ring-[#118AB2] focus:border-transparent">
+                    <button id="generateBtn" class="bg-[#118AB2] text-white font-bold py-2 px-6 rounded-full shadow-lg hover:bg-opacity-90 transition-all duration-300 transform hover:scale-105">
+                        Generate Recipe
+                    </button>
+                    <div id="recipeOutput" class="w-full md:w-2/3 mt-4 p-4 bg-gray-100 rounded-lg text-gray-700 min-h-[100px] flex items-center justify-center text-center">
+                        Your recipe will appear here.
                     </div>
-                    <div class="text-center">
-                        <button id="askAI" class="bg-green-600 text-white font-bold py-2 px-6 rounded-lg hover:bg-green-700 transition-colors">
-                            Ask AI Coach
-                        </button>
+                </div>
+            </section>
+            
+            <section class="md:col-span-2 lg:col-span-3 bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-2xl font-semibold text-center text-[#118AB2] mb-6">Your Personalized Food Planner</h2>
+                <p class="text-center text-gray-600 mb-4">Enter your details to generate a customized daily and weekly meal plan for you. </p>
+                <div class="flex flex-col md:flex-row items-center justify-center space-y-4 md:space-y-0 md:space-x-4 mb-6">
+                    <input id="ageInput" type="number" placeholder="Age (e.g., 28)" class="w-full md:w-1/3 px-4 py-2 border rounded-full focus:outline-none focus:ring-2 focus:ring-[#FFD166]">
+                    <input id="heightInput" type="number" placeholder="Height in cm (e.g., 165)" class="w-full md:w-1/3 px-4 py-2 border rounded-full focus:outline-none focus:ring-2 focus:ring-[#06D6A0]">
+                    <input id="weightInput" type="number" placeholder="Weight in kg (e.g., 60)" class="w-full md:w-1/3 px-4 py-2 border rounded-full focus:outline-none focus:ring-2 focus:ring-[#FF6B6B]">
+                </div>
+                <div class="flex flex-col items-center space-y-4">
+                    <button id="generatePlanBtn" class="bg-[#118AB2] text-white font-bold py-2 px-6 rounded-full shadow-lg hover:bg-opacity-90 transition-all duration-300 transform hover:scale-105">
+                        Generate My Plan
+                    </button>
+                    <div id="plannerOutput" class="w-full mt-4 p-4 bg-gray-100 rounded-lg text-gray-700 min-h-[200px]">
+                        <p class="text-center text-gray-500">Your personalized daily and weekly food planner will appear here.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="md:col-span-2 lg:col-span-3 bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-2xl font-semibold text-center text-[#118AB2] mb-6">Your Weekly Movement Plan</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+                    <div class="bg-[#FFD166] bg-opacity-20 p-6 rounded-lg">
+                        <div class="text-4xl mb-2">🧘‍♀️</div>
+                        <h3 class="text-xl font-bold">Surya Namaskar</h3>
+                        <p class="text-gray-700">A full-body yoga flow to boost metabolism. Start with 5 rounds and build to 12 daily.</p>
+                    </div>
+                    <div class="bg-[#06D6A0] bg-opacity-20 p-6 rounded-lg">
+                        <div class="text-4xl mb-2">🏃‍♀️</div>
+                        <h3 class="text-xl font-bold">Cardio</h3>
+                        <p class="text-gray-700">Essential for fat loss. Aim for 3-4 sessions of 30-45 minutes per week (brisk walk, jog, cycle).</p>
+                    </div>
+                    <div class="bg-[#118AB2] bg-opacity-20 p-6 rounded-lg">
+                        <div class="text-4xl mb-2">💪</div>
+                        <h3 class="text-xl font-bold">Core Strength</h3>
+                        <p class="text-gray-700">Target your midsection. Perform 2-3 dedicated 15-20 minute sessions weekly.</p>
+                    </div>
+                </div>
+            </section>
+             <section class="md:col-span-2 lg:col-span-3 bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-2xl font-semibold text-center text-[#118AB2] mb-6">Essential Core Exercises</h2>
+                <p class="text-center text-gray-600 mb-6">Targeting your core with consistency is crucial for reducing belly fat and strengthening your midsection.</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <h3 class="text-xl font-bold text-[#FF6B6B] mb-2">Plank</h3>
+                        <p class="text-gray-700 text-sm mb-2">Strengthens your entire core, including deep abdominal muscles.</p>
+                         <p class="text-gray-700 text-sm mb-2">How-to: Start in a push-up position, then lower onto forearms. Keep back straight and hold for 30-60 seconds. 
+
+[Image of plank exercise]
+ </p>
+                        <a href="https://www.youtube.com/watch?v=pvIjsG5Svck" target="_blank" class="text-[#118AB2] hover:underline text-sm font-semibold">Watch Tutorial</a>
+                    </div>
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <h3 class="text-xl font-bold text-[#FF6B6B] mb-2">Russian Twists</h3>
+                        <p class="text-gray-700 text-sm mb-2">Excellent for sculpting your obliques and waistline.</p>
+                        <p class="text-gray-700 text-sm mb-2">How-to: Sit with knees bent, lean back slightly. Twist your torso from side to side.  </p>
+                        <a href="https://www.youtube.com/watch?v=JyUqwkVpsi8" target="_blank" class="text-[#118AB2] hover:underline text-sm font-semibold">Watch Tutorial</a>
+                    </div>
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <h3 class="text-xl font-bold text-[#FF6B6B] mb-2">Bicycle Crunches</h3>
+                        <p class="text-gray-700 text-sm mb-2">Targets upper and lower abs as well as obliques for a full midsection workout.</p>
+                        <p class="text-gray-700 text-sm mb-2">How-to: Lie on back, pedal legs. Bring opposite elbow to opposite knee.  </p>
+                        <a href="https://www.youtube.com/watch?v=eqg47ZuGZXQ" target="_blank" class="text-[#118AB2] hover:underline text-sm font-semibold">Watch Tutorial</a>
+                    </div>
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <h3 class="text-xl font-bold text-[#FF6B6B] mb-2">Mountain Climbers</h3>
+                        <p class="text-gray-700 text-sm mb-2">A dynamic exercise that combines cardio with core work.</p>
+                        <p class="text-gray-700 text-sm mb-2">How-to: Start in a plank, alternately bring knees to chest in a running motion.  </p>
+                        <a href="https://www.youtube.com/watch?v=hq_0YlyfqGM" target="_blank" class="text-[#118AB2] hover:underline text-sm font-semibold">Watch Tutorial</a>
+                    </div>
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <h3 class="text-xl font-bold text-[#FF6B6B] mb-2">Leg Raises</h3>
+                        <p class="text-gray-700 text-sm mb-2">Focuses on strengthening the lower abdominal muscles.</p>
+                        <p class="text-gray-700 text-sm mb-2">How-to: Lie on back, keep legs straight. Slowly raise and lower legs without arching your back.  </p>
+                        <a href="https://www.youtube.com/watch?v=eqg47ZuGZXQ" target="_blank" class="text-[#118AB2] hover:underline text-sm font-semibold">Watch Tutorial</a>
+                    </div>
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <h3 class="text-xl font-bold text-[#FF6B6B] mb-2">Flutter Kicks</h3>
+                        <p class="text-gray-700 text-sm mb-2">Targets the lower abs and hip flexors for a toned lower stomach.</p>
+                        <p class="text-gray-700 text-sm mb-2">How-to: Lie on back, raise legs slightly. Flutter kick them up and down in small movements.  </p>
+                        <a href="https://www.youtube.com/watch?v=Z61R1wDq_W4" target="_blank" class="text-[#118AB2] hover:underline text-sm font-semibold">Watch Tutorial</a>
+                    </div>
+                </div>
+            </section>
+            <section class="md:col-span-2 lg:col-span-3 bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-2xl font-semibold text-center text-[#118AB2] mb-6">Darebee Total Abs Program</h2>
+                <p class="text-center text-gray-600 mb-6">Access the complete 30-day abs program with mobile-friendly options.</p>
+                
+                <!-- Desktop PDF Viewer -->
+                <div class="hidden md:block w-full h-[800px] overflow-hidden rounded-lg shadow-inner">
+                    <iframe src="https://darebee.com/pdf/programs/total-abs.pdf" class="w-full h-full" frameborder="0" title="Darebee Total Abs Program PDF"></iframe>
+                </div>
+                
+                <!-- Mobile-Friendly Alternative -->
+                <div class="md:hidden space-y-4">
+                    <div class="bg-blue-50 p-4 rounded-lg border border-blue-200">
+                        <h3 class="text-lg font-semibold text-blue-800 mb-2">📱 Mobile Users</h3>
+                        <p class="text-gray-700 text-sm mb-3">For the best mobile experience, use the options below:</p>
+                        <div class="space-y-2">
+                            <a href="https://darebee.com/pdf/programs/total-abs.pdf" target="_blank" class="block w-full bg-blue-600 text-white text-center py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors">
+                                📄 Open PDF in New Tab
+                            </a>
+                            <a href="https://darebee.com/programs/total-abs.html" target="_blank" class="block w-full bg-green-600 text-white text-center py-2 px-4 rounded-lg hover:bg-green-700 transition-colors">
+                                🌐 View on Darebee Website
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-2">💡 Quick Program Overview</h3>
+                        <div class="text-sm text-gray-700 space-y-1">
+                            <p><strong>Duration:</strong> 30 days</p>
+                            <p><strong>Level:</strong> Beginner to Intermediate</p>
+                            <p><strong>Focus:</strong> Core strengthening and fat burning</p>
+                            <p><strong>Equipment:</strong> Bodyweight exercises only</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="lg:col-span-1 bg-white rounded-lg shadow-md p-6 flex flex-col items-center justify-center text-center">
+                 <h2 class="text-2xl font-semibold text-[#118AB2] mb-4">Stay Hydrated</h2>
+                 <p class="text-gray-600 mb-4">Water is key to boosting metabolism and flushing out toxins.</p>
+                 <div class="text-6xl text-[#118AB2]">
+                     💧💧💧💧💧
+                 </div>
+                 <p class="text-2xl font-bold mt-4">2.5 - 3 Liters Daily</p>
+            </section>
+
+            <section class="lg:col-span-2 bg-white rounded-lg shadow-md p-6">
+                <h2 class="text-2xl font-semibold text-center text-[#118AB2] mb-6">The Pillars of Success</h2>
+                <div class="space-y-4">
+                    <div class="flex items-start p-4 bg-green-50 rounded-lg">
+                        <span class="text-2xl mr-4">✅</span>
+                        <div>
+                            <h3 class="font-bold text-green-800">Do Embrace</h3>
+                            <p class="text-gray-700">Whole grains, healthy fats from nuts & seeds, home-cooked meals, and staying active consistently.</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start p-4 bg-red-50 rounded-lg">
+                        <span class="text-2xl mr-4">❌</span>
+                        <div>
+                            <h3 class="font-bold text-red-800">Do Avoid</h3>
+                            <p class="text-gray-700">Processed foods, sugary drinks, skipping meals, and refined flours (maida).</p>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -129,87 +271,88 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            const generatePersonalizedPlanBtn = document.getElementById('generatePersonalizedPlan');
-            const genderInput = document.getElementById('genderInput');
+            const ctx = document.getElementById('calorieDistributionChart').getContext('2d');
+            const calorieDistributionChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Breakfast', 'Snacks', 'Lunch', 'Dinner'],
+                    datasets: [{
+                        label: 'Calorie Distribution',
+                        data: [325, 250, 475, 425],
+                        backgroundColor: [
+                            '#FFD166',
+                            '#06D6A0',
+                            '#FF6B6B',
+                            '#118AB2'
+                        ],
+                        borderColor: '#ffffff',
+                        borderWidth: 4,
+                        hoverOffset: 8
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                font: {
+                                    size: 14,
+                                    family: 'Inter'
+                                }
+                            }
+                        },
+                        tooltip: {
+                           callbacks: {
+                                title: function(tooltipItems) {
+                                    const item = tooltipItems[0];
+                                    let label = item.chart.data.labels[item.dataIndex];
+                                    if (Array.isArray(label)) {
+                                      return label.join(' ');
+                                    } else {
+                                      return label;
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    cutout: '60%'
+                }
+            });
+
+            const generateBtn = document.getElementById('generateBtn');
+            const recipeInput = document.getElementById('recipeInput');
+            const recipeOutput = document.getElementById('recipeOutput');
+            const generatePlanBtn = document.getElementById('generatePlanBtn');
             const ageInput = document.getElementById('ageInput');
+            const heightInput = document.getElementById('heightInput');
             const weightInput = document.getElementById('weightInput');
-            const heightFeetInput = document.getElementById('heightFeetInput');
-            const heightInchesInput = document.getElementById('heightInchesInput');
-            const heightCmInput = document.getElementById('heightCmInput');
-            const regionInput = document.getElementById('regionInput');
-            const aiChatSection = document.getElementById('aiChatSection');
-            const askAIBtn = document.getElementById('askAI');
-            const chatInput = document.getElementById('chatInput');
+            const plannerOutput = document.getElementById('plannerOutput');
 
-            generatePersonalizedPlanBtn.addEventListener('click', function() {
-                const gender = genderInput.value;
-                const age = ageInput.value;
-                const weight = weightInput.value;
-                const heightFeet = heightFeetInput.value;
-                const heightInches = heightInchesInput.value;
-                const heightCm = heightCmInput.value;
-                const region = regionInput.value;
-
-                // Calculate height in cm
-                let heightInCm = 0;
-                if (heightFeet && heightInches) {
-                    heightInCm = (parseInt(heightFeet) * 30.48) + (parseInt(heightInches) * 2.54);
-                } else if (heightCm) {
-                    heightInCm = parseInt(heightCm);
-                }
-
-                if (!gender || !age || !weight || !region || heightInCm === 0) {
-                    alert('Please fill in all fields to generate your personalized plan. Make sure to enter height in either feet/inches or cm.');
+            generateBtn.addEventListener('click', async () => {
+                const prompt = recipeInput.value;
+                if (!prompt) {
+                    recipeOutput.textContent = 'Please enter a food or ingredient!';
                     return;
                 }
 
-                // Store height in cm for later use
-                window.userHeight = heightInCm;
-
-                // Show AI chat section
-                aiChatSection.classList.remove('hidden');
-                
-                // Scroll to AI chat section
-                aiChatSection.scrollIntoView({ behavior: 'smooth' });
+                // Directly open ChatGPT with the recipe prompt
+                openChatGPT(prompt, 'recipe');
             });
+            
+            generatePlanBtn.addEventListener('click', async () => {
+                const age = ageInput.value;
+                const height = heightInput.value;
+                const weight = weightInput.value;
 
-            askAIBtn.addEventListener('click', function() {
-                const question = chatInput.value.trim();
-                if (!question) {
-                    alert('Please enter your question.');
+                if (!age || !height || !weight) {
+                    plannerOutput.innerHTML = '<p class="text-center text-red-500">Please fill in all fields (age, height, and weight).</p>';
                     return;
                 }
 
-                // Get user details for context
-                const gender = genderInput.value;
-                const age = ageInput.value;
-                const weight = weightInput.value;
-                const height = window.userHeight || heightCmInput.value;
-                const region = regionInput.value;
-
-                // Create comprehensive prompt
-                const prompt = `I am an Indian person from ${region} India looking for personalized health and fitness advice. My details: ${gender}, ${age} years old, ${Math.round(height)}cm tall, ${weight}kg weight.
-
-Question: ${question}
-
-Please provide detailed, culturally appropriate advice for:
-- Indian cuisine and cooking methods
-- Regional food preferences from ${region} India
-- Practical meal planning for Indian kitchens
-- Exercise routines suitable for Indian lifestyle
-- Weight loss and belly fat reduction strategies
-
-Make your response specific to my profile and region.`;
-
-                // Open ChatGPT with the comprehensive prompt
-                openChatGPT(prompt, 'general');
-            });
-
-            // Allow Enter key to submit chat
-            chatInput.addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') {
-                    askAIBtn.click();
-                }
+                // Directly open ChatGPT with the meal plan prompt
+                openChatGPT(`${age},${height},${weight}`, 'meal-plan');
             });
         });
 
@@ -217,9 +360,7 @@ Make your response specific to my profile and region.`;
         function openChatGPT(input, type) {
             let prompt = '';
             
-            if (type === 'general') {
-                prompt = input; // Use the input directly as it's already formatted
-            } else if (type === 'recipe') {
+            if (type === 'recipe') {
                 prompt = `I am an Indian person looking for a healthy recipe for belly fat loss. Please create a healthy Indian recipe for "${input}". 
 
 Requirements:

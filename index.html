@@ -337,19 +337,8 @@
                     return;
                 }
 
-                recipeOutput.innerHTML = `
-                    <div class="text-center">
-                        <h3 class="text-lg font-semibold text-[#118AB2] mb-4">🍽️ AI Recipe Generator</h3>
-                        <div class="bg-green-50 p-4 rounded-lg mb-4">
-                            <p class="text-sm text-green-800 mb-3">Ready to generate healthy Indian recipes!</p>
-                            <p class="text-sm text-gray-700">Click below to open ChatGPT with a pre-filled prompt for "${prompt}"</p>
-                        </div>
-                        <button onclick="openChatGPT('${prompt}', 'recipe')" class="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 transition-colors">
-                            🤖 Open ChatGPT Recipe Generator
-                        </button>
-                        <p class="text-xs text-gray-500 mt-3">Uses ChatGPT free version - no API key needed!</p>
-                    </div>
-                `;
+                // Directly open ChatGPT with the prompt
+                openChatGPT(prompt, 'recipe');
             });
             
             generatePlanBtn.addEventListener('click', async () => {
@@ -362,19 +351,8 @@
                     return;
                 }
 
-                plannerOutput.innerHTML = `
-                    <div class="text-center">
-                        <h3 class="text-lg font-semibold text-[#118AB2] mb-4">📋 AI Meal Planner</h3>
-                        <div class="bg-green-50 p-4 rounded-lg mb-4">
-                            <p class="text-sm text-green-800 mb-3">Your details: ${age} years, ${height}cm, ${weight}kg</p>
-                            <p class="text-sm text-gray-700">Ready to generate your personalized Indian meal plan!</p>
-                        </div>
-                        <button onclick="openChatGPT('${age},${height},${weight}', 'meal-plan')" class="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 transition-colors">
-                            🍽️ Open ChatGPT Meal Planner
-                        </button>
-                        <p class="text-xs text-gray-500 mt-3">Uses ChatGPT free version - no API key needed!</p>
-                    </div>
-                `;
+                // Directly open ChatGPT with the user details
+                openChatGPT(`${age},${height},${weight}`, 'meal-plan');
             });
         });
 
@@ -434,29 +412,9 @@ Please provide:
 Format it clearly with sections for each day and meal.`;
             }
             
-            // Open ChatGPT in new tab with pre-filled prompt
+            // Open ChatGPT in same page with pre-filled prompt
             const chatgptUrl = `https://chat.openai.com/?q=${encodeURIComponent(prompt)}`;
-            window.open(chatgptUrl, '_blank');
-            
-            // Show success message
-            const output = type === 'recipe' ? document.getElementById('recipeOutput') : document.getElementById('plannerOutput');
-            output.innerHTML = `
-                <div class="text-center">
-                    <h3 class="text-lg font-semibold text-green-600 mb-2">✅ ChatGPT Opened!</h3>
-                    <p class="text-sm text-gray-600 mb-3">Your personalized prompt has been pre-filled in ChatGPT</p>
-                    <div class="bg-green-50 p-3 rounded-lg text-left">
-                        <p class="text-xs text-green-800 font-semibold mb-1">What happens next:</p>
-                        <ul class="text-xs text-gray-700 space-y-1">
-                            <li>• ChatGPT will generate your ${type === 'recipe' ? 'recipe' : 'meal plan'}</li>
-                            <li>• Copy the response back to this page if needed</li>
-                            <li>• Use ChatGPT's free version - no cost!</li>
-                        </ul>
-                    </div>
-                    <button onclick="location.reload()" class="mt-3 bg-blue-600 text-white px-4 py-2 rounded-lg text-sm hover:bg-blue-700">
-                        Generate Another
-                    </button>
-                </div>
-            `;
+            window.location.href = chatgptUrl;
         }
     </script>
 
